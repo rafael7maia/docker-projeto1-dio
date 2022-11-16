@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  joomla:
+    image: joomla
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      JOOMLA_DB_HOST: joomladb
+      MYSQL_PORT_3306_TCP: 3306
+      JOOMLA_DB_PASSWORD: 18lI0EWW@SnK
+    networks:
+      - minha-rede
+  
+  joomladb:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 18lI0EWW@SnK
+    ports:
+      - 3306
+    volumes:
+      - "./data:/var/lib/mysql"
+    networks:
+      - minha-rede
+
+networks: 
+  minha-rede:
+    driver: bridge
